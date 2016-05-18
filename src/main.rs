@@ -9,7 +9,7 @@ use std::path::Path;
 
 mod cpu;
 mod memory;
-mod vm;
+mod interconnect;
 
 fn main() {
     // TODO: Replace unwrap.
@@ -18,8 +18,8 @@ fn main() {
 
     // Create a clean cpu state and virtual machine. The CPU must have a shorter
     // lifetime than the virtual machine in order to use it's resources.
-    let virtual_machine = vm::VirtualMachine::new(rom);
-    let mut cpu = cpu::Cpu::new(virtual_machine);
+    let interconnect = interconnect::Interconnect::new(rom);
+    let mut cpu = cpu::Cpu::new(interconnect);
     cpu.run();
 }
 
