@@ -8,15 +8,16 @@ use std::io::Read;
 use std::path::Path;
 
 mod cpu;
-mod interconnect;
+mod memory;
+mod vm;
 
 fn main() {
     // TODO: Replace unwrap.
     let rom_file_name = env::args().nth(1).unwrap();
     let rom = read_bin(rom_file_name);
 
-    let interconnect = interconnect::Interconnect::new(rom);
-    let mut cpu = cpu::Cpu::new(interconnect);
+    let virtual_machine = vm::VirtualMachine::new(rom);
+    let mut cpu = cpu::Cpu::new(virtual_machine);
     cpu.run();
 }
 
